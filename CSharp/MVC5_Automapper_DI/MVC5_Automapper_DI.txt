@@ -1,0 +1,36 @@
+
+
+public class YourProfile : Profile
+{
+   protected override void Configure(){
+       //CreateMap<T, TDto>().ForMember....   
+   }
+}
+
+
+public void ConfigureServices(IServiceCollection services)
+{
+  //...
+   var config = new MapperConfiguration(cfg =>
+   {
+     cfg.AddProfile(new YourProfile());
+   });
+   services.AddSingleton<IMapper>(sp => config.CreateMapper())
+  //...
+}
+
+
+
+public class Repository
+{
+   private readonly IMapper _mapper;
+
+   public Repository(IMapper mapper){
+         _mapper = mapper;
+   }
+
+   public List<TDto> ToDtoList<TDto>(){
+         return _mapper.Map<List<TDto>>(sourceList);
+   }
+}
+

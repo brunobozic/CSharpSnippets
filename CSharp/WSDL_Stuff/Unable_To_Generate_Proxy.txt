@@ -1,0 +1,2 @@
+https://github.com/dotnet/wcf/issues/2269
+

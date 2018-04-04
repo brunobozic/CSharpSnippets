@@ -1,0 +1,33 @@
+http://jsfiddle.net/88g5P/42/
+
+<div class="widgetbox">
+    <br><br>
+    <div class="icon-calendar icon-large"></div>
+    <h5>Add an event</h5>
+</div>
+        
+.widgetbox {
+    width: 250px;
+    height: 250px;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+.widgetbox [class*="icon-"] {
+    -webkit-transition-duration: 0.8s;
+    -moz-transition-duration: 0.8s;
+    -o-transition-duration: 0.8s;
+    transition-duration: 0.8s;
+     display: inline-block;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    transition-property: transform;
+}
+.widgetbox:hover [class*="icon-"] {
+	color: #24a159 !important;
+    -webkit-transform:rotate(360deg);
+    -moz-transform:rotate(360deg);
+    -o-transform:rotate(360deg);
+    .rotate(360deg);
+}

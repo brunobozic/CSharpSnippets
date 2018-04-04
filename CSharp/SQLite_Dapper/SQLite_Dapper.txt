@@ -1,0 +1,1 @@
+https://richardniemand.wordpress.com/2015/04/24/sqlite-and-dapper-in-c/
