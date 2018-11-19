@@ -1,0 +1,23 @@
+$('#KeyRequirementDropPart').multiselect({
+            selectAllValue: 'multiselect-all',
+            enableCaseInsensitiveFiltering: true,
+            enableFiltering: true,
+            maxHeight: '300',
+            buttonWidth: '100%',
+            onChange: function (element, checked) {
+                var selected = [];
+
+                var checklistId = $('#ChecklistId').val();
+
+                var items = $('#KeyRequirementDropPart option:selected').each(function () {
+                    selected.push([$(this).val()]);
+                });
+
+                try {
+                    FetchAssesmentCriteraFilteredForKeyRequirements(checklistId, selected);
+                }
+                catch (exc) {
+                    console.log('Warning: unable to refresh the assesment criteria dropdown list. ' + exc);
+                }
+            }
+        });
