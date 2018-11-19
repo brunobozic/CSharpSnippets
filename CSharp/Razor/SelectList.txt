@@ -41,3 +41,18 @@ public ActionResult ExampleView()
 }
 
 @Html.DropDownList("fooBarDropDown", DropDownListUtility.GetFooBarDropDown("2"))
+
+
+//
+//
+//
+var service = new AssesmentCriteriaService();
+locKrItems = service.GetAllAssesmentCriteria().Select(c => new SelectListItem
+                    {
+                        Value = c.Id.ToString() ,
+                        Text = c.Label ,
+                        // Selected = listOfSelectedItems.Contains(c.Id) ,
+                        // Disabled = listOfSelectedItems.Contains(c.Id) // this will make the dropdown checkboxes disabled for all those items that already exist in the db, to prevent deletion
+                    }).ToList();
+                    
+var msl = new MultiSelectList(locKrItems , "Value" , "Text" , listOfSelectedItems , listOfSelectedItems);
