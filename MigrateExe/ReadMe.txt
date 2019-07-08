@@ -1,0 +1,7 @@
+# Run this!
+## Migrate.exe Arpa_Revizije.dll /connectionString="Data Source=vs2012develop\sqlexpress;Initial Catalog=ArpaProduction;user id=arpa;password=f83j#jg;" /connectionProviderName="System.Data.SqlClient"
+## PS D:\Projects\ArpaStaging\bin> ./Migrate.exe BEL.dll /connectionString="Data Source=vs2012develop\sqlexpress;Initial Catalog=ArpaProduction;user id=arpa;password=f83j#jg;" /connectionProviderName="System.Data.SqlClient" /verbose /startUpDataDirectory="D:\Projects\ArpaStaging\bin" /startUpConfigurationFile="D:\Projects\ArpaStaging\Web.config"
+
+## Production
+## PS D:\Projects\ArpaStaging\bin> ./Migrate.exe BEL.dll /connectionString="Data Source=10.4.29.12;Initial Catalog=ArpaProduction2;user id=arpa;password=f83j#jg;" /connectionProviderName="System.Data.SqlClient" /verbose /startUpDataDirectory="C:\inetpub\wwwroot\RevizijeProduction\bin" /startUpConfigurationFile="C:\inetpub\wwwroot\RevizijeProduction\Web.config"
+## ./Migrate.exe BEL.dll /connectionString="Data Source=10.4.29.12;Initial Catalog=ArpaProductionClean;user id=arpa;password=f83j#jg;" /connectionProviderName="System.Data.SqlClient" /verbose /startUpDataDirectory="C:\inetpub\wwwroot\RevizijeProduction\bin" /startUpConfigurationFile="C:\inetpub\wwwroot\RevizijeProduction\Web.config"
