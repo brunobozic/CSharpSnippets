@@ -1,0 +1,19 @@
+select 
+	datetime(Timestamp, 'unixepoch', 'utc')
+FROM 
+	PerformanceLog;
+
+
+select 
+	datetime(Timestamp, 'unixepoch', 'localtime')
+FROM 
+	PerformanceLog;
+
+
+
+select 
+	*
+FROM 
+	PerformanceLog 
+where datetime(Timestamp, 'unixepoch') 
+      between '2018-06-13 10:00:00' and '2018-06-13 13:40:58';
