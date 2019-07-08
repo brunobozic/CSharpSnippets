@@ -1,0 +1,25 @@
+ function FetchAssesmentCriteraFilteredForKeyRequirements(checklistId, listOfSelectedKeyRequirements) {
+
+        var numbersArray = listOfSelectedKeyRequirements.map(Number);
+
+        // this method call returns a partial view...
+        $.ajax({
+            type: "GET",
+            url: "/ClRad/PopulateAssesmentCriteriaDropdown",
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            traditional: true,
+            data: { 'checklistId': checklistId, 'selectedKeyRequirements': numbersArray },
+            success: function (response) {
+                $('#injectMeHere').html("");
+                $('#injectMeHere').html(response);
+            },
+            // this needs to render the error partial
+            failure: function (response) {
+                $('#AssesmentCriteriaDropPart').html(response);
+            },
+            error: function (response) {
+                $('#AssesmentCriteriaDropPart').html(response);
+            }
+        });
+    }
