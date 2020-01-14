@@ -102,3 +102,37 @@ export class WithCredentialsInterceptor implements HttpInterceptor {
         return next.handle(request);
     }
 }
+
+==========================================================================================================================
+==========================================================================================================================
+==========================================================================================================================
+==========================================================================================================================
+
+private _providerPayment(vpp: bVoucherPaymentPayload): void {
+    let pageContent = '<html><head></head><body><form id="payForm" action="' + vpp.endpoint + '" method="POST">';
+
+    for (let item of vpp.formFields) {
+      let ff : bLookupItem = (<bLookupItem> item);
+      pageContent += '\n  <input type="hidden" name="' + ff.key + '" value="' + ff.value + '">';
+    }
+
+    pageContent += '\n</form><script type="text/javascript">document.getElementById("payForm").submit();</script></body></html>';
+
+    // console.log('DYNAMIC FORM!!');
+    // console.log(pageContent);
+
+
+
+    if (this._runningOnNativeDevice()) {
+      const pageContentUrl = 'data:text/html;base64,' + btoa(pageContent);      
+
+      this._inAppBrowser.create(pageContentUrl, "_self", {
+       'location'          : 'no',
+       'presentationstyle' : 'fullscreen',
+      });
+    } else {
+      document.open();
+      document.write(pageContent);
+      document.close();
+    }
+  }
