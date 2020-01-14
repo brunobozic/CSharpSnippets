@@ -57,3 +57,48 @@ export class AppComponent {
 
 let param = {id_trx:res.param.newidtrx};
 this.opentab.post(param,"http://192.168.1.20/laporan_sila/nota_tanda_terima.php");
+
+
+
+
+
+
+
+
+
+
+
+==========================================================================================================================
+==========================================================================================================================
+==========================================================================================================================
+==========================================================================================================================
+
+Initially I didn't think this would work, but after spending the whole week researching and trial and error. It is working nicely for me using Angular 6. You probably can use javascript or any other language you want. Basically, 2 steps you must follow:
+
+1) When calling the login form redirect, you must set respontType=text so HttpClient won't throw an error expecting JSON data.
+
+return  this.http.post(this.HOST_URL+'login' ,params1.toString(), 
+{
+    headers:  headers,
+    withCredentials: true,
+    observe: 'response',
+    params: params1,
+    responseType: 'text',
+    reportProgress: true
+})
+2) Setup an interceptor to intercept your subsequence API request (assuming the endpoint will return json now). In the intercepter, pass withCredentials=true . In Javascript or Curl, you would expect to retrieve that from the login successful and send back JSESSIONID with the API request. In Angular, you only need withCredentials=true in the Interceptor. *NOTE: you cannot pass this in the HttpHeaders before making a request. See bug report here.
+
+Here is my code snippet for Interceptor:
+
+@Injectable()
+export class WithCredentialsInterceptor implements HttpInterceptor {
+
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        console.log("Intercepting Request withCredentials=true ");
+        request = request.clone({
+            withCredentials: true
+        });
+
+        return next.handle(request);
+    }
+}
