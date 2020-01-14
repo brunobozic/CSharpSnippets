@@ -1,0 +1,59 @@
+ng generate service redirect
+
+
+
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class RedirectService {
+  constructor() { }
+  post(obj,url) {
+    var mapForm = document.createElement("form");
+    mapForm.target = "_blank";
+    mapForm.method = "POST"; // or "post" if appropriate
+    mapForm.action = url;
+    Object.keys(obj).forEach(function(param){
+      var mapInput = document.createElement("input");
+      mapInput.type = "hidden";
+      mapInput.name = param;
+      mapInput.setAttribute("value", obj[param]);
+      mapForm.appendChild(mapInput);
+  });
+  document.body.appendChild(mapForm);
+  mapForm.submit();
+}
+
+}
+
+
+import { RedirectService } from './redirect.service';
+
+@NgModule({
+  declarations: [
+   ...........
+  ],
+  imports: [
+   ........
+  ],
+  providers: [RedirectService],
+  bootstrap: [AppComponent]
+})
+
+
+
+import { RedirectService } from './redirect.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app-root.html',
+  styleUrls: ['./app-root.scss']
+})
+export class AppComponent {
+  constructor(
+ private opentab: RedirectService,
+  ){  }
+}
+
+
+let param = {id_trx:res.param.newidtrx};
+this.opentab.post(param,"http://192.168.1.20/laporan_sila/nota_tanda_terima.php");
