@@ -10,6 +10,20 @@ namespace FileIO
 {
     public class WithPipeLines
     {
+        
+         //   var pool = ArrayPool<Employee>.Shared;
+         //   var employeeRecords = pool.Rent(100000);
+         //   var pipeLinesTest = new WithPipeLines();
+         //
+         //   try
+         //   {
+         //       await pipeLinesTest.ProcessFileAsync(_filePath, employeeRecords);
+         //   }
+         //   finally
+         //   {
+         //       pool.Return(employeeRecords, clearArray: true);
+         //   }
+        
         /// <summary>
         /// Process the file using System.IO.Pipelines
         /// </summary>
