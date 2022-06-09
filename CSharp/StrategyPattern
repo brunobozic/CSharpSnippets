@@ -1,0 +1,172 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StrategyPattern.Model
+{
+    public interface IBasketDiscountStrategy 
+    { 
+        decimal GetTotalCostAfterApplyingDiscountTo(Basket basket); 
+    }
+}
+
+
+
+
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StrategyPattern.Model
+{
+    public class BasketDiscountMoneyOff : IBasketDiscountStrategy
+    {
+        public decimal GetTotalCostAfterApplyingDiscountTo(Basket basket)
+        {
+            if (basket.TotalCost > 100)
+                return basket.TotalCost - 10m;
+            if (basket.TotalCost > 50) 
+                return basket.TotalCost - 5m; 
+            else return basket.TotalCost;
+        }
+    }
+}
+
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StrategyPattern.Model
+{
+    public class BasketDiscountPercentageOff : IBasketDiscountStrategy 
+    { 
+        public decimal GetTotalCostAfterApplyingDiscountTo(Basket basket) 
+        { 
+            return basket.TotalCost * 0.85m; 
+        } 
+    }
+}
+
+
+
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StrategyPattern.Model
+{
+    public class NoBasketDiscount : IBasketDiscountStrategy 
+    { 
+        public decimal GetTotalCostAfterApplyingDiscountTo(Basket basket) 
+        { 
+            return basket.TotalCost; 
+        } 
+    }
+}
+
+
+
+
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StrategyPattern.Model
+{
+    public enum DiscountType
+    {
+        NoDiscount = 0, 
+        MoneyOff = 1,
+        PercentageOff = 2
+    }
+}
+
+
+
+
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StrategyPattern.Model
+{
+    public class BasketDiscountFactory 
+    { 
+        public static IBasketDiscountStrategy GetDiscount(DiscountType DiscountType)
+        { 
+            switch (DiscountType) 
+            { 
+                case DiscountType.MoneyOff: 
+                    return new BasketDiscountMoneyOff(); 
+                case DiscountType.PercentageOff: 
+                    return new BasketDiscountPercentageOff(); 
+                default: return new NoBasketDiscount(); 
+            } 
+        } 
+    }
+}
+
+
+
+
+
+
+using System;
+
+namespace StrategyPattern.Model
+{
+    public class Basket 
+    {
+        public decimal TotalCost { get; set; }
+
+        private IBasketDiscountStrategy _basketDiscount; 
+        public Basket(DiscountType discountType) 
+        {
+            _basketDiscount = BasketDiscountFactory.GetDiscount(discountType); 
+        }
+        public decimal GetTotalCostAfterDiscount() 
+        { 
+            return _basketDiscount.GetTotalCostAfterApplyingDiscountTo(this); 
+        }
+    }
+}
+
+
+
+
+
+
+
+
