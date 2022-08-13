@@ -1,0 +1,25 @@
+List<UserWithFriends> usersWithFriends = new();
+List<Task> tasks = new();
+for (int i = 0; i < users.Length; i++)
+{
+    // because of closure
+    int index = i;
+    UserWithoutFriends user = users[i];
+
+    tasks.Add(Task.Run(async () =>
+    {
+        Log($"get friends of user #{index + 1}");
+
+        IEnumerable<UserWithoutFriends> friends = await GetFriendsByUserId(user.Id);
+        usersWithFriends.Add(new UserWithFriends
+        {
+            Id = user.Id,
+            FullName = user.FullName,
+            Friends = friends
+        });
+
+        Log($"friends of user #{index + 1} received");
+    }));
+}
+
+await Task.WhenAll(tasks);
